@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
-import { existsSync, readdirSync, statSync } from 'fs';
+import {
+  existsSync, readdirSync, statSync, readFileSync,
+} from 'fs';
 import { fileURLToPath, URL } from 'url';
 
 /**
@@ -36,21 +38,8 @@ export function getMode(argvs, isBuild) {
 export function importFile(filePath) {
   return new Promise((resolve) => {
     import(filePath)
-      .then((res) => resolve(res))
+      .then(res => resolve(res))
       .catch(() => resolve());
-  });
-}
-
-async function importConfigFile(name, filePath) {
-  return new Promise((resolve) => {
-    importFile(filePath).then((res) => {
-      if (res) {
-        resolve({ name, config: { name, ...res.default } });
-      } else {
-        console.log(`项目${name}中配置文件加载失败`);
-        resolve({ name, config: { name } });
-      }
-    });
   });
 }
 
@@ -62,29 +51,22 @@ export async function getAllProjects() {
   const isExist = existsSync(projectsDir);
   if (!isExist) return [];
   const names = readdirSync(projectsDir);
-  const promises = [];
+  const projects = {};
   for (let i = 0; i < names.length; i += 1) {
     const name = names[i];
     const projectPath = projectsDir + name;
     const info = statSync(projectPath);
     if (info.isDirectory() && existsSync(`${projectPath}/index.html`)) {
-      const configFilePath = `${projectPath}/config.js`;
-      promises.push(importConfigFile(name, configFilePath));
+      const configFilePath = `${projectPath}/config.json`;
+      try {
+        const config = JSON.parse(readFileSync(configFilePath, 'utf-8'));
+        if (!config.name) config.name = name;
+        projects[name] = config;
+      } catch (error) {
+        console.log(`项目${name}中配置文件加载失败`);
+      }
     }
   }
-  let results = [];
-  try {
-    results = await Promise.allSettled(promises);
-  } catch (error) {
-    // do nothing
-  }
-  const projects = {};
-  results.forEach((res) => {
-    const { name, config } = res.value;
-    if (!config.disabled) {
-      projects[name] = config;
-    }
-  });
   return projects;
 }
 
@@ -120,16 +102,16 @@ export function assert2str(exp, text) {
 export function genMainJsFileContent(includeRouter, includePinia) {
   return `import { createApp } from 'vue';
 ${assert2str(includePinia, "import { createPinia } from 'pinia';\n")}${assert2str(
-    includeRouter,
-    "import initRouter from '@/router';\n",
-  )}import App from './App.vue';
-${assert2str(
   includeRouter,
-  `import projectRouter from './router';\n
+  "import initRouter from '@/router';\n",
+)}import App from './App.vue';
+${assert2str(
+    includeRouter,
+    `import projectRouter from './router';\n
 const router = initRouter(projectRouter, import.meta.env.VITE_ROUTE_MODE);\n`,
-)}${assert2str(includePinia, '\nconst pinia = createPinia();\n')}
+  )}${assert2str(includePinia, '\nconst pinia = createPinia();\n')}
 createApp(App)${assert2str(includeRouter, '.use(router)')}${assert2str(includePinia, '\n  ')}${assert2str(
-    includePinia,
-    '.use(pinia)',
-  )}\n  .mount('#app');\n`;
+  includePinia,
+  '.use(pinia)',
+)}\n  .mount('#app');\n`;
 }
