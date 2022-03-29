@@ -31,12 +31,12 @@
     "vite": "^2.8.0"
   },
   "lint-staged": {
-    "*.{js,mjs,ts,jsx,vue}": [
-      "eslint --fix --color",
+    "*": [
+      "prettier --write --ignore-unknown",
       "git add"
     ],
-    "*.{css,less,scss}": [
-      "prettier --fix",
+    "*.{js,mjs,ts,jsx,vue}": [
+      "eslint --fix --color",
       "git add"
     ]
   }
