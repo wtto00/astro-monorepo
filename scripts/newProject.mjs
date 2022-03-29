@@ -42,6 +42,16 @@ async function runCreateProject(projectName, includeRouter, includePinia) {
       execSync(`npx prettier --write ${eslintConfigPath}`);
     }
   }
+  // jsconfig配置文件夹引用alias
+  const jsconfigPath = getAbsoluteFilePath('../jsconfig.json');
+  try {
+    const jsconfig = JSON.parse(fse.readFileSync(jsconfigPath, 'utf-8'));
+    jsconfig.compilerOptions.paths[projectName] = [`./src/packages/${projectName}`];
+    fse.writeFileSync(jsconfigPath, JSON.stringify(jsconfig), 'utf-8');
+    execSync(`npx prettier --write ${eslintConfigPath}`);
+  } catch (error) {
+    // do nothing
+  }
 }
 
 /**
