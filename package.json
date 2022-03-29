@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "node scripts/app.js",
     "build": "node scripts/app.js build",
-    "new:project": "node scripts/newProject.js"
+    "new:project": "node scripts/newProject.js",
+    "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\"",
+    "format": "prettier --write .",
+    "lint": "eslint --fix --color src/**/*.{js,ts,jsx,vue}"
   },
-  "type": "module",
   "dependencies": {
     "pinia": "^2.0.12",
     "vue": "^3.2.25",
@@ -22,8 +24,20 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^8.5.0",
     "fs-extra": "^10.0.1",
+    "husky": "^7.0.4",
     "inquirer": "^8.2.2",
+    "lint-staged": "^12.3.7",
     "prettier": "^2.4.1",
     "vite": "^2.8.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,vue}": [
+      "eslint --fix --color",
+      "git add"
+    ],
+    "*.{css,less,scss}": [
+      "prettier --fix",
+      "git add"
+    ]
   }
 }
