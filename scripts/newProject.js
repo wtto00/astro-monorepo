@@ -6,6 +6,17 @@ import { getAbsoluteFilePath, genMainJsFileContent, assert2str } from './util.js
 
 const params = process.argv.slice(2);
 
+function initProjectDir(projectDir, includeRouter, includePinia) {
+  // 复制模板
+  fse.copySync(getAbsoluteFilePath('../template'), projectDir);
+
+  // main.js
+  fse.writeFileSync(`${projectDir}/main.js`, genMainJsFileContent(includeRouter, includePinia));
+  if (includeRouter || includePinia) {
+    console.log(`执行安装 pnpm add ${assert2str(includeRouter, 'vue-router ')}${assert2str(includePinia, 'pinia')}`);
+  }
+}
+
 function createProject(projectName, includeRouter, includePinia) {
   if (!projectName) {
     console.log('缺失项目名称');
@@ -14,13 +25,23 @@ function createProject(projectName, includeRouter, includePinia) {
   // 项目目录
   const projectDir = getAbsoluteFilePath(`../src/packages/${projectName}`);
 
-  // 复制模板
-  fse.copySync(getAbsoluteFilePath('../template'), projectDir);
-
-  // main.js
-  fse.writeFileSync(`${projectDir}/main.js`, genMainJsFileContent(includeRouter, includePinia));
-  if (includeRouter || includePinia) {
-    console.log(`执行安装 pnpm add ${assert2str(includeRouter, 'vue-router ')}${assert2str(includePinia, 'pinia')}`);
+  const files = fse.readdirSync(projectDir);
+  if (files.includes('index.html') || files.includes('main.js')) {
+    inquirer
+      .prompt([
+        {
+          type: 'confirm',
+          name: 'override',
+          default: false,
+          message: `项目目录src/packages/${projectName}不为空，是否覆盖？`,
+        },
+      ])
+      .then((answers) => {
+        if (!answers.override) return;
+        initProjectDir(projectDir, includeRouter, includePinia);
+      });
+  } else {
+    initProjectDir(projectDir, includeRouter, includePinia);
   }
 }
 
