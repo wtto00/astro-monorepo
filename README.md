@@ -3,7 +3,7 @@
 一个 [Vite](https://cn.vitejs.dev/) + [Vue 3](https://v3.cn.vuejs.org/) 项目模板
 多个单独的项目共用一些组件
 
-### 创建项目
+## 创建项目
 
 ```shell
 # pnpm
@@ -19,7 +19,7 @@ npm run new:project [projectName]
 模板文件在 `template` 文件夹内  
 自动创建项目文件在 `src/packages/[projectName]/` 文件夹内
 
-### 环境变量
+## 环境变量
 
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
@@ -28,11 +28,25 @@ npm run new:project [projectName]
 |参数|名称|类型|备注|
 |----|---|-------|---|
 |name|应用名称|string|用于启动或者打包时，选择显示的应用名称|
-|env|默认环境变量|object|`key` 以 `VITE_`开头，`value` 必须位字符串|
+|env|默认环境变量|object|`key` 以 \_VITE\_\_ 开头，`value` 必须为*字符串*，暴露给客户端|
 |modeEnv|vite 各模式下的环境变量|object|同上|
+|runEnv|vite 运行时的环境变量|object|比如每个项目的 `rouer-base` 不同，可以配置个变量`ROUTER_BASE`，在`vite.config.js`中配置`base:process.env.ROUTER_BASE`|
+|modeRunEnv|vite 各模式下运行时的环境变量|object|每种模式下的运行时环境变量，同名会覆盖默认 runEnv|
 |disabled|禁用项目|bool|禁用后，启动或打包不再显示|
 
-### 启动、打包
+env 中默认值
+
+```text
+VITE_ROUTE_MODE=history
+```
+
+runEnv 中的默认值
+
+```text
+PROJECT_NAME=[projectName]
+```
+
+## 启动、打包
 
 `cli` 脚本的参数同 `vite-cli` 参数一致
 
@@ -66,7 +80,7 @@ Options:
   -v, --version           Display version number
 ```
 
-### 公共部分
+## 公共部分
 
 1. **router**
    `src/router/index.js`文件中可以定义所有项目都需要的页面，比如登陆授权页面
