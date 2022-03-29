@@ -2,7 +2,6 @@
 /* eslint-disable import/extensions */
 import { existsSync, readdirSync, statSync } from 'fs';
 import { fileURLToPath, URL } from 'url';
-import defaultConfig from '../template/config.js';
 
 /**
  * 由相对路径获取绝对路径
@@ -34,16 +33,24 @@ export function getMode(argvs, isBuild) {
   return isBuild ? 'production' : 'development';
 }
 
-async function importConfigFile(name, filePath) {
+export function importFile(filePath) {
   return new Promise((resolve) => {
     import(filePath)
-      .then((res) => {
-        resolve({ name, config: { name, ...defaultConfig, ...res.default } });
-      })
-      .catch(() => {
+      .then((res) => resolve(res))
+      .catch(() => resolve());
+  });
+}
+
+async function importConfigFile(name, filePath) {
+  return new Promise((resolve) => {
+    importFile(filePath).then((res) => {
+      if (res) {
+        resolve({ name, config: { name, ...res.default } });
+      } else {
         console.log(`项目${name}中配置文件加载失败`);
-        resolve({ name, config: { name, ...defaultConfig } });
-      });
+        resolve({ name, config: { name } });
+      }
+    });
   });
 }
 

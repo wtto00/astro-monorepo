@@ -4,9 +4,7 @@ import inquirer from 'inquirer';
 import { spawn } from 'child_process';
 import { writeFileSync } from 'fs';
 import { EOL } from 'os';
-import {
-  getAbsoluteFilePath, getMode, getAllProjects, getEnvValues,
-} from './util.js';
+import { getAbsoluteFilePath, getMode, getAllProjects, getEnvValues } from './util.mjs';
 
 let projects = {};
 
@@ -70,7 +68,7 @@ getAllProjects().then((res) => {
         type: 'list',
         name: 'project',
         message: `请选择要${commandName}的项目`,
-        choices: Object.keys(projects).map(item => ({ name: projects[item].name || item, value: item })),
+        choices: Object.keys(projects).map((item) => ({ name: projects[item].name || item, value: item })),
       },
     ])
     .then((answers) => {
