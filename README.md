@@ -24,7 +24,7 @@ npm run new:project [projectName]
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
-环境变量写在项目目录下的 `config.js`中
+环境变量写在项目目录下的 `config.js`中，不存在改配置文件时，读取的是模板的`template/config.js`配置文件
 |参数|名称|类型|备注|
 |----|---|-------|---|
 |name|应用名称|string|用于启动或者打包时，选择显示的应用名称|
@@ -55,7 +55,7 @@ PROJECT_NAME=[projectName]
 pnpm dev [--Options]
 
 # 打包
-pnpm build
+pnpm build [--Options]
 
 # 也可以用yarn/npm
 ```
