@@ -2,10 +2,13 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    'vue/setup-compiler-macros': true,
   },
   extends: ['plugin:vue/vue3-strongly-recommended', 'airbnb-base'],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 12,
+    parser: 'espree',
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
   plugins: ['vue'],
