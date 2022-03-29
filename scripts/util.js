@@ -75,7 +75,7 @@ export async function getAllProjects() {
   results.forEach((res) => {
     const { name, config } = res.value;
     if (!config.disabled) {
-      projects[name] = { ...defaultConfig, ...config };
+      projects[name] = config;
     }
   });
   return projects;
@@ -113,16 +113,16 @@ export function assert2str(exp, text) {
 export function genMainJsFileContent(includeRouter, includePinia) {
   return `import { createApp } from 'vue';
 ${assert2str(includePinia, "import { createPinia } from 'pinia';\n")}${assert2str(
-  includeRouter,
-  "import initRouter from '@/router';\n",
-)}import App from './App.vue';
-${assert2str(
     includeRouter,
-    `import projectRouter from './router';\n
+    "import initRouter from '@/router';\n",
+  )}import App from './App.vue';
+${assert2str(
+  includeRouter,
+  `import projectRouter from './router';\n
 const router = initRouter(projectRouter, import.meta.env.VITE_ROUTE_MODE);\n`,
-  )}${assert2str(includePinia, '\nconst pinia = createPinia();\n')}
+)}${assert2str(includePinia, '\nconst pinia = createPinia();\n')}
 createApp(App)${assert2str(includeRouter, '.use(router)')}${assert2str(includePinia, '\n  ')}${assert2str(
-  includePinia,
-  '.use(pinia)',
-)}\n  .mount('#app');\n`;
+    includePinia,
+    '.use(pinia)',
+  )}\n  .mount('#app');\n`;
 }
