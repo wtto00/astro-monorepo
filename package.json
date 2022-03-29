@@ -29,7 +29,7 @@
     "vite": "^2.8.0"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,vue}": [
+    "*.{js,mjs,ts,jsx,vue}": [
       "eslint --fix --color",
       "git add"
     ],
