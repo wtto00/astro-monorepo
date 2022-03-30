@@ -4,6 +4,7 @@ import {
   existsSync, readdirSync, statSync, readFileSync,
 } from 'fs';
 import { fileURLToPath, URL } from 'url';
+import JSON5 from 'json5';
 
 /**
  * 由相对路径获取绝对路径
@@ -59,7 +60,7 @@ export async function getAllProjects() {
     if (info.isDirectory() && existsSync(`${projectPath}/index.html`)) {
       const configFilePath = `${projectPath}/config.json`;
       try {
-        const config = JSON.parse(readFileSync(configFilePath, 'utf-8'));
+        const config = JSON5.parse(readFileSync(configFilePath, 'utf-8'));
         if (!config.name) config.name = name;
         projects[name] = config;
       } catch (error) {

@@ -26,18 +26,14 @@
     "fs-extra": "^10.0.1",
     "husky": "^7.0.4",
     "inquirer": "^8.2.2",
+    "json5": "^2.2.1",
     "lint-staged": "^12.3.7",
     "prettier": "^2.4.1",
     "vite": "^2.8.0"
   },
   "lint-staged": {
-    "*": [
-      "prettier --write --ignore-unknown",
-      "git add"
-    ],
     "*.{js,mjs,ts,jsx,vue}": [
-      "eslint --fix --color",
-      "git add"
+      "eslint --fix --color"
     ]
   }
 }

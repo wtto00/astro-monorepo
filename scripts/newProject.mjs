@@ -3,6 +3,7 @@
 import inquirer from 'inquirer';
 import fse from 'fs-extra';
 import { execSync } from 'child_process';
+import JSON5 from 'json5';
 import {
   getAbsoluteFilePath, genMainJsFileContent, assert2str, importFile,
 } from './util.mjs';
@@ -37,7 +38,7 @@ async function runCreateProject(projectName, includeRouter, includePinia) {
     if (Array.isArray(alias)) {
       alias.push([projectName, `./src/packages/${projectName}`]);
       eslintConfig.settings['import/resolver'].alias.map = alias;
-      const eslintConfigText = `module.exports = ${JSON.stringify(eslintConfig)}`;
+      const eslintConfigText = `module.exports = ${JSON5.stringify(eslintConfig)}`;
       fse.writeFileSync(eslintConfigPath, eslintConfigText, 'utf-8');
       execSync(`npx prettier --write ${eslintConfigPath}`);
     }
@@ -45,9 +46,9 @@ async function runCreateProject(projectName, includeRouter, includePinia) {
   // jsconfig配置文件夹引用alias
   const jsconfigPath = getAbsoluteFilePath('../jsconfig.json');
   try {
-    const jsconfig = JSON.parse(fse.readFileSync(jsconfigPath, 'utf-8'));
+    const jsconfig = JSON5.parse(fse.readFileSync(jsconfigPath, 'utf-8'));
     jsconfig.compilerOptions.paths[projectName] = [`./src/packages/${projectName}`];
-    fse.writeFileSync(jsconfigPath, JSON.stringify(jsconfig), 'utf-8');
+    fse.writeFileSync(jsconfigPath, JSON5.stringify(jsconfig), 'utf-8');
     execSync(`npx prettier --write ${jsconfigPath}`);
   } catch (error) {
     // do nothing
