@@ -48,7 +48,7 @@ async function runCreateProject(projectName, includeRouter, includePinia) {
     const jsconfig = JSON.parse(fse.readFileSync(jsconfigPath, 'utf-8'));
     jsconfig.compilerOptions.paths[projectName] = [`./src/packages/${projectName}`];
     fse.writeFileSync(jsconfigPath, JSON.stringify(jsconfig), 'utf-8');
-    execSync(`npx prettier --write ${eslintConfigPath}`);
+    execSync(`npx prettier --write ${jsconfigPath}`);
   } catch (error) {
     // do nothing
   }
