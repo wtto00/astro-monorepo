@@ -100,3 +100,9 @@ Options:
    `src/components`文件夹内的公共组件，每个项目都可以使用`@/components/xxx`来访问
 1. **views**
    `src/views`文件夹内放所有项目都要用到的公共页面
+
+## 其他
+
+1. 目前测试的脚本执行环境是 nodejs v16.13.2
+1. 别忘记更改协议，私有的项目，在`packages.json`中，更改`"license":"MIT"`为`"private":true`，并删除根目录的`LICENSE`文件。
+1. 新建项目选择了`vue-router`和`pinia`，如果本地没有安装，别忘记手动安装`pnpm add vue-router pinia`。
