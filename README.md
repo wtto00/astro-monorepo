@@ -106,3 +106,9 @@ Options:
 1. 目前测试的脚本执行环境是 nodejs v16.13.2
 1. 别忘记更改协议，私有的项目，在`packages.json`中，更改`"license":"MIT"`为`"private":true`，并删除根目录的`LICENSE`文件。
 1. 新建项目选择了`vue-router`和`pinia`，如果本地没有安装，别忘记手动安装`pnpm add vue-router pinia`。
+
+## 推荐插件
+
+1. 打包体积大小分析 [rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer)
+1. gzip/brotli 等压缩 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/main/README.zh_CN.md)
+1. html 压缩以及模板等 [vite-plugin-html](https://github.com/vbenjs/vite-plugin-html/blob/main/README.zh_CN.md)
