@@ -1,7 +1,17 @@
 # vite-multiple-packages
 
 一个 [Vite](https://cn.vitejs.dev/) + [Vue 3](https://v3.cn.vuejs.org/) 项目模板
-多个单独的项目共用一些组件
+实现多个单独的项目共用一些组件
+
+## 开始前
+
+1. 修改 `package.json` 文件中的 `name`，`license` 等信息
+   私有的项目，更改 `"license":"MIT"` 为 `"private":true` ，并删除根目录的 `LICENSE` 文件。
+1. 在 `template` 文件夹内根据自己的实际需要修改，也可以创建项目后，在项目的目录内单独修改
+   - `index.html`页面默认标题以及默认的图标等
+   - `config.js`默认的环境变量，包含`打包时`以及`运行时`
+   - `App.vue`vue 的默认的入口文件
+   - `main.js`项目入口文件，如果项目都不需要用到 `router` 以及 `pinia`，可以在这里删除掉相关代码，并删除 `package.json` 中的相关依赖
 
 ## 创建项目
 
@@ -24,7 +34,7 @@ npm run new:project [projectName]
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
 **不要在根目录添加 `.env` 以及 `.env.*` 文件**  
-环境变量写在项目目录下的 `config.js`中，不存在改配置文件时，读取的是模板的`template/config.js`配置文件
+环境变量写在项目目录下的 `config.js`中
 |参数|名称|类型|备注|
 |----|---|-------|---|
 |name|应用名称|string|用于启动或者打包时，选择显示的应用名称|
@@ -99,13 +109,13 @@ Options:
 1. **components**
    `src/components`文件夹内的公共组件，每个项目都可以使用`@/components/xxx`来访问
 1. **views**
-   `src/views`文件夹内放所有项目都要用到的公共页面
+   `src/views`文件夹内放所有项目都要用到的公共页面，比如登陆授权页面
+1. **public**
+   [Vite 文档 public 目录](https://cn.vitejs.dev/guide/assets.html#the-public-directory)
 
 ## 其他
 
 1. 目前测试的脚本执行环境是 nodejs v16.13.2
-1. 别忘记更改协议，私有的项目，在`packages.json`中，更改`"license":"MIT"`为`"private":true`，并删除根目录的`LICENSE`文件。
-1. 新建项目选择了`vue-router`和`pinia`，如果本地没有安装，别忘记手动安装`pnpm add vue-router pinia`。
 
 ## 推荐插件
 

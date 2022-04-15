@@ -83,36 +83,3 @@ export function getEnvValues(project, mode, isRun) {
   const modeEnvValues = isRun ? project.modeRunEnv?.[mode] : project.modeEnv?.[mode];
   return { ...defaultEnvValues, ...modeEnvValues };
 }
-
-/**
- * 断言返回字符串
- * @param {bool} exp 布尔表达式
- * @param {string} text 表达式为真时返回
- * @returns
- */
-export function assert2str(exp, text) {
-  return exp ? text : '';
-}
-
-/**
- * 生成main.js项目文件
- * @param {bool} includeRouter 是否使用vue-router插件
- * @param {bool} includePinia 是否使用pinia插件
- * @returns
- */
-export function genMainJsFileContent(includeRouter, includePinia) {
-  return `import { createApp } from 'vue';
-${assert2str(includePinia, "import { createPinia } from 'pinia';\n")}${assert2str(
-  includeRouter,
-  "import initRouter from '@/router';\n",
-)}import App from './App.vue';
-${assert2str(
-    includeRouter,
-    `import projectRouter from './router';\n
-const router = initRouter(projectRouter, import.meta.env.VITE_ROUTE_MODE);\n`,
-  )}${assert2str(includePinia, '\nconst pinia = createPinia();\n')}
-createApp(App)${assert2str(includeRouter, '.use(router)')}${assert2str(includePinia, '\n  ')}${assert2str(
-  includePinia,
-  '.use(pinia)',
-)}\n  .mount('#app');\n`;
-}
