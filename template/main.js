@@ -3,6 +3,8 @@ import { createPinia } from 'pinia';
 import initRouter from '@/router';
 import App from './App.vue';
 
+import 'uno.css';
+
 import projectRouter from './router';
 
 const router = initRouter(projectRouter, import.meta.env.VITE_ROUTE_MODE);

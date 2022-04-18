@@ -12,6 +12,18 @@
    - `config.js`默认的环境变量，包含`打包时`以及`运行时`
    - `App.vue`vue 的默认的入口文件
    - `main.js`项目入口文件，如果项目都不需要用到 `router` 以及 `pinia`，可以在这里删除掉相关代码，并删除 `package.json` 中的相关依赖
+1. [UnoCSS](https://github.com/unocss/unocss) 根字体大小是按照设计稿尺寸为`750px`，如果不是可在模板文件中的`App.vue`中修改
+   ```css
+   @media screen and (max-width: 640px) {
+     html {
+       font-size: calc(100vw * 16 / [设计稿宽度]);
+     }
+   }
+   body {
+     max-width: 640px;
+   }
+   ```
+   针对 H5 页面，设置最大显示宽度为 640px，大于此宽度的窗口，将以 640px 显示，且在整个窗口居中。如果要更改最大显示宽度，可更改`App.vue`中上述代码中的 640px 为你要设置的值
 
 ## 创建项目
 
