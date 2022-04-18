@@ -6,7 +6,8 @@
     },
     "target": "esnext",
     "module": "commonjs",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve"
   },
   "exclude": ["node_modules", "template"]
 }
