@@ -45,7 +45,7 @@ function runApp({ project } = {}) {
   };
   let envCmd = 'cross-env ';
   Object.keys(runEnvs).forEach((envKey) => {
-    envCmd += `${envKey}=${runEnvs[envKey]} `;
+    envCmd += `${envKey}=${runEnvs[envKey] || ''} `;
   });
 
   console.log(`${commandName}项目：${projectConfig.name}`);
