@@ -9,7 +9,9 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "checkJs": true
+    "checkJs": true,
+    "lib": ["DOM", "ESNext"],
+    "types": ["vite/client"]
   },
   "exclude": ["node_modules", "template/**/*"]
 }
