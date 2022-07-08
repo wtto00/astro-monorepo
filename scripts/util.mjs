@@ -18,7 +18,7 @@ export function getAbsoluteFilePath(filePath) {
 /**
  * 获取运行的mode
  * @param {array} argvs 脚本参数
- * @param {bool} isBuild 是否是build命令
+ * @param {boolean} isBuild 是否是build命令
  */
 export function getMode(argvs, isBuild) {
   const modeIndex = argvs.indexOf('--mode');
@@ -57,6 +57,7 @@ export async function getAllProjects() {
     const name = names[i];
     const projectPath = projectsDir + name;
     const info = statSync(projectPath);
+
     if (info.isDirectory() && existsSync(`${projectPath}/index.html`)) {
       const configFilePath = `${projectPath}/config.json`;
       try {
@@ -75,7 +76,7 @@ export async function getAllProjects() {
  * 获取环境变量
  * @param {object} project 项目信息
  * @param {string} mode vite运行mode
- * @param {bool} isRun 是否是仅运行时的环境变量，不暴露给客户端
+ * @param {boolean} [isRun] 是否是仅运行时的环境变量，不暴露给客户端
  * @returns
  */
 export function getEnvValues(project, mode, isRun) {

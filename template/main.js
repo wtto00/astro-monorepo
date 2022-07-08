@@ -11,6 +11,4 @@ const router = initRouter(projectRouter, import.meta.env.VITE_ROUTE_MODE);
 
 const pinia = createPinia();
 
-createApp(App).use(router)
-  .use(pinia)
-  .mount('#app');
+createApp(App).use(router).use(pinia).mount('#app');

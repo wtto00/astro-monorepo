@@ -8,33 +8,37 @@
     "new:project": "node scripts/newProject.mjs",
     "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\"",
     "format": "prettier --write .",
-    "lint": "eslint --fix --color src/**/*.{js,ts,jsx,vue}"
+    "lint": "eslint --ignore-path .gitignore --fix --color ./**/*.{js,mjs,jsx,ts.mts,tsx,vue}"
   },
   "dependencies": {
-    "pinia": "^2.0.12",
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "pinia": "^2.0.14",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue": "^2.3.3",
     "cross-env": "^7.0.3",
-    "eslint": "^7.32.0",
+    "eslint": "^8.19.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-vue": "^8.5.0",
-    "fs-extra": "^10.0.1",
-    "husky": "^7.0.4",
-    "inquirer": "^8.2.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^9.2.0",
+    "fs-extra": "^10.1.0",
+    "husky": "^8.0.1",
+    "inquirer": "^9.0.0",
     "json5": "^2.2.1",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.4.1",
-    "unocss": "^0.31.5",
-    "vite": "^2.9.0"
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "unocss": "^0.43.2",
+    "vite": "^2.9.14"
   },
   "lint-staged": {
-    "*.{js,mjs,ts,jsx,vue}": [
+    "*.{js,mjs,jsx,ts,mts,tsx,vue}": [
+      "prettier --write",
       "eslint --fix --color"
+    ],
+    "!(*.{js,mjs,jsx,ts,mts,tsx,vue})": [
+      "prettier --write"
     ]
   }
 }

@@ -16,7 +16,7 @@ const commandName = isBuild ? '打包' : '启动';
 
 /**
  * 运行APP
- * @param {{project:string}}
+ * @param {{project?:string}}
  * project: 项目名称，也是目录名称
  */
 function runApp({ project } = {}) {

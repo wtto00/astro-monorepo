@@ -5,9 +5,10 @@
       "@/*": ["./src/*"]
     },
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "allowSyntheticDefaultImports": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "checkJs": true
   },
-  "exclude": ["node_modules", "template"]
+  "exclude": ["node_modules", "template/**/*"]
 }

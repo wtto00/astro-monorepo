@@ -2,16 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    'vue/setup-compiler-macros': true,
-  },
-  globals: {
-    $: 'readonly',
-    $$: 'readonly',
-    $ref: 'readonly',
-    $shallowRef: 'readonly',
-    $computed: 'readonly',
-    $customRef: 'readonly',
-    $toRef: 'readonly',
   },
   extends: ['plugin:vue/vue3-strongly-recommended', 'airbnb-base'],
   parser: 'vue-eslint-parser',
