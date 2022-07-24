@@ -8,7 +8,7 @@
     "new:project": "node scripts/newProject.mjs",
     "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\"",
     "format": "prettier --write .",
-    "lint": "eslint --ignore-path .gitignore --fix --color ./**/*.{js,mjs,jsx,ts.mts,tsx,vue}"
+    "lint": "eslint --ignore-path .gitignore --fix --color ./**/*.{js,mjs,jsx,ts,mts,tsx,vue}"
   },
   "dependencies": {
     "pinia": "^2.0.14",
@@ -33,12 +33,11 @@
     "vite": "^2.9.14"
   },
   "lint-staged": {
-    "*.{js,mjs,jsx,ts,mts,tsx,vue}": [
-      "prettier --write",
-      "eslint --fix --color"
+    "*": [
+      "prettier --write --ignore-unknown"
     ],
-    "!(*.{js,mjs,jsx,ts,mts,tsx,vue})": [
-      "prettier --write"
+    "*.{js,mjs,jsx,ts,mts,tsx,vue}": [
+      "eslint --fix --color"
     ]
   }
 }
