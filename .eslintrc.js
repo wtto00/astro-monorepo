@@ -1,15 +1,8 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
+  env: { browser: true, es2021: true },
   extends: ['plugin:vue/vue3-strongly-recommended', 'airbnb-base'],
   parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: 'espree',
-    ecmaVersion: 2021,
-    sourceType: 'module',
-  },
+  parserOptions: { parser: 'espree', ecmaVersion: 2021, sourceType: 'module' },
   plugins: ['vue'],
   settings: {
     'import/resolver': {
@@ -18,8 +11,9 @@ module.exports = {
         extensions: ['.ts', '.js', '.jsx', '.json', '.vue'],
       },
     },
+    'import/core-modules': ['uno.css'],
   },
-  ignorePatterns: ['template/**/*'],
+  ignorePatterns: ['template/**/*', '**/*.d.ts'],
   rules: {
     'no-param-reassign': ['error', { props: false }],
     'arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],
