@@ -1,17 +1,8 @@
-import { relative, extname, join, resolve, dirname } from "node:path";
-import routesConfig from "../config/routes.config";
+import { join, resolve, dirname } from "node:path";
+import routes from "../routes.config";
 import { build } from "vite-ssg/node";
-import {
-  cpSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
-import { URL, fileURLToPath } from "node:url";
-
-const rootPath = fileURLToPath(new URL("..", import.meta.url));
+import { existsSync, rmSync } from "node:fs";
+import { relative, rootPath, createVirtualFiles, str2IdentityName } from "./util";
 
 // 打包前清空dist文件夹
 const distPath = resolve(rootPath, "dist");
@@ -19,73 +10,40 @@ if (existsSync(distPath)) {
   rmSync(distPath, { recursive: true });
 }
 
-const apps = Object.keys(routesConfig);
+const apps = Object.keys(routes);
 
 for (let i = 0; i < apps.length; i++) {
   const appName = apps[i];
-  const app = routesConfig[appName];
+  const app = routes[appName];
   const base = join("/", app.base ?? "/", "/");
+
+  console.info(`开始打包: ${appName}`);
 
   /**
    * 创建项目虚拟目录
    * 创建index.html
    * 创建main.ts
    */
-  const virtualAppPath = resolve(rootPath, `.vue-mpa/${appName}`);
-  mkdirSync(virtualAppPath, { recursive: true });
-  // index.html
-  const indexPath = resolve(virtualAppPath, "index.html");
-  const indexTemplate = readFileSync(resolve(rootPath, "index.html"), {
-    encoding: "utf8",
-  });
-  writeFileSync(indexPath, indexTemplate.replace("/src/main.ts", `/main.ts`), {
-    encoding: "utf8",
-  });
-  // main.ts
-  const mainPath = resolve(virtualAppPath, "main.ts");
-  const mainTemplate = readFileSync(resolve(rootPath, "src/main.ts"), {
-    encoding: "utf8",
-  });
   const paths = Object.keys(app.paths);
-  let routes = "[";
-  let components = [] as string[];
+  const routesStr: string[] = [];
+  const components: string[] = [];
   paths.forEach((path) => {
     const file = app.paths[path];
-    // string to valid identifier name
-    const componentName =
-      "_" +
-      file
-        .substring(0, file.length - extname(file).length)
-        .replace(/(?![a-zA-Z0-9_])./g, "_");
-    components.push(`import ${componentName} from "@/pages/${file}"`);
-    routes += `{path:"${path}",component:${componentName}},`;
+    const componentName = str2IdentityName(file);
+    components.push(`import ${componentName} from "@/pages/${file}";`)
+    routesStr.push(`{path:"${path}",component:${componentName}}`)
   });
-  routes += "]";
-  writeFileSync(
-    mainPath,
-    mainTemplate
-      .replace("__ROUTES__", routes)
-      .replace("// __IMPORT_COMPONENT__", components.join("\n"))
-      .replace("// IMPORRTANT: don't delete next line\n", "")
-      .replace(
-        "/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n",
-        ""
-      ),
-    { encoding: "utf8" }
+  const { indexPath, virtualAppPath } = createVirtualFiles(
+    appName,
+    routesStr,
+    components
   );
-  // App.vue
-  const appTemplate = resolve(rootPath, "src/App.vue");
-  const appPath = resolve(virtualAppPath, "App.vue");
-  cpSync(appTemplate, appPath);
-  // .env.local
-  writeFileSync(resolve(rootPath, ".env.local"), `VITE_APP_NAME=${appName}`, {
-    encoding: "utf8",
-  });
 
   const dist = relative(
     dirname(indexPath),
     resolve(rootPath, "dist", app.dist ?? appName ?? "/")
   );
+  console.log(dist);
 
   await build(
     {
@@ -107,5 +65,5 @@ for (let i = 0; i < apps.length; i++) {
       },
     }
   );
-  console.info(`打包 ${appName} 成功`);
+  console.info(`打包 \`${appName}\` 成功`);
 }

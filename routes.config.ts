@@ -1,7 +1,6 @@
 /**
  * 所有项目的路由配置
  */
-
 const routesConfig: Record<string, RouteConfig> = {
   a: { paths: { "/": "A.vue" } },
   b: { paths: { "/": "B.vue" } },
