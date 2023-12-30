@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsx scripts/build.ts",
     "preview": "vite preview",
-    "lint": "eslint --fix --color --ext .ts,.vue .",
+    "lint": "eslint --fix --color --ext .js,.cjs,.mjs,.ts,.tsx,.vue .",
     "format": "prettier . --write --ignore-unknown",
     "tscheck": "vue-tsc --noEmit --pretty -p ./tsconfig.json",
     "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\""

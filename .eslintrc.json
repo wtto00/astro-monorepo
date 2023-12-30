@@ -20,7 +20,7 @@
     "project": "tsconfig.eslint.json",
     "extraFileExtensions": [".vue"]
   },
-  "ignorePatterns": ["dist/**/*"],
+  "ignorePatterns": ["node_modules", "dist", "!.*", ".vite-ssg-temp"],
   "overrides": [],
   "rules": {
     "indent": ["error", 2],
@@ -28,6 +28,8 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
 
-    "vue/multi-word-component-names": "off"
+    "vue/multi-word-component-names": "off",
+
+    "@typescript-eslint/no-empty-function": "off"
   }
 }
