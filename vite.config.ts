@@ -2,17 +2,15 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import UnoCSS from 'unocss/vite';
 import { createVirtualFiles, rootPath } from './scripts/util';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const appName = command === 'serve' ? '.dev' : mode;
-  const res = createVirtualFiles(appName);
-  const dist = res.dist;
-  const input = res.indexPath;
+  const { indexPath } = createVirtualFiles(appName);
 
   return {
-    root: resolve(rootPath, `.vue-mpa/${appName}`),
+    root: dirname(indexPath),
     publicDir: resolve(rootPath, 'public'),
     plugins: [vue(), UnoCSS()],
     resolve: {
@@ -21,10 +19,9 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     build: {
-      outDir: dist,
       emptyOutDir: true,
       rollupOptions: {
-        input: input,
+        input: indexPath,
       },
     },
   };

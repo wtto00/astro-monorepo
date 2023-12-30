@@ -1,7 +1,7 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, extname, posix, resolve, sep } from 'node:path';
+import { extname, posix, resolve, sep } from 'node:path';
 import { URL, fileURLToPath, pathToFileURL } from 'node:url';
-import routes from '../routes.config';
+import routes, { RouteConfig } from '../routes.config';
 
 /**
  * 项目根目录
@@ -48,24 +48,48 @@ export function createVirtualFiles(appName: string) {
   const appPath = resolve(virtualAppPath, 'App.vue');
   cpSync(appTemplate, appPath);
 
-  const dist =
-    appName === '.dev' ? '' : relative(dirname(indexPath), resolve(rootPath, 'dist', app?.dist ?? appName ?? '/'));
+  return { indexPath };
+}
 
-  return { indexPath, dist };
+/**
+ * 根据命令传参，获取要打包或运行的项目集合
+ */
+export function filterInputApps() {
+  const argvs = process.argv.slice(2);
+  const appNames = [] as string[];
+  let isApps = false;
+  for (const argv of argvs) {
+    if (isApps && !argv.startsWith('-')) {
+      appNames.push(argv);
+    } else if (isApps) {
+      break;
+    } else if (argv === '--apps') {
+      isApps = true;
+    }
+  }
+  if (appNames.length > 0) {
+    const filterRoutes = Object.keys(routes).filter((appName) => appNames.includes(appName));
+    if (filterRoutes.length === 0) {
+      console.error(`${appNames.join()} 不是有效的项目，请在routes.config.ts定义`);
+      process.exit(-1);
+    }
+    return filterRoutes.reduce((prev, curr) => ({ ...prev, [curr]: routes[curr] }), {} as Record<string, RouteConfig>);
+  }
+  return routes;
 }
 
 /**
  * 开发环境时，获取所有的陆游与组件对应关系
  */
 function getAllPaths() {
-  const appNames = Object.keys(routes);
+  const appNames = Object.keys(filterInputApps());
 
   const paths = {} as Record<string, string>;
 
   for (const appName of appNames) {
     const app = routes[appName];
     Object.keys(app.paths).forEach((routePath) => {
-      const route = posix.join(appName, routePath);
+      const route = posix.join(appName, routePath.substring(1));
       paths[`/${route}`] = app.paths[routePath];
     });
   }

@@ -1,4 +1,4 @@
-interface RouteConfig {
+export interface RouteConfig {
   /**
    * 部署的路由基准路径
    * @default '/'
