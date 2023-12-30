@@ -29,7 +29,6 @@
     "src/**/*.vue",
     ".vue-mpa/**/*.ts",
     ".vue-mpa/.dev/*.ts",
-    "routes.config.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

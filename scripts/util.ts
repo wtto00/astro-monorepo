@@ -1,6 +1,7 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { extname, posix, resolve, sep } from "node:path";
+import { dirname, extname, posix, resolve, sep } from "node:path";
 import { URL, fileURLToPath, pathToFileURL } from "node:url";
+import routes from "../routes.config";
 
 /**
  * 项目根目录
@@ -10,36 +11,39 @@ export const rootPath = fileURLToPath(new URL("..", import.meta.url));
 /**
  * 创建项目虚拟文件
  * @param appName 项目名称
- * @param routes 路由数组，js字符串
- * @param components 组件导入的js字符串
  */
-export function createVirtualFiles(
-  appName: string,
-  routes: string[],
-  components: string[]
-) {
+export function createVirtualFiles(appName: string) {
+  const app = routes[appName];
+  // 准备此项目的相关文件
+  // 项目虚拟目录
   const virtualAppPath = resolve(rootPath, `.vue-mpa/${appName}`);
   mkdirSync(virtualAppPath, { recursive: true });
-
   // index.html
   const indexPath = resolve(virtualAppPath, "index.html");
   const indexTemplate = readFileSync(resolve(rootPath, "index.html"), {
     encoding: "utf8",
   });
-  writeFileSync(indexPath, indexTemplate.replace("/src/main.ts", `/main.ts`), {
-    encoding: "utf8",
-  });
-
+  writeFileSync(
+    indexPath,
+    indexTemplate.replace(
+      "<!-- __INJECT_MAIN_SCRIPT__ -->",
+      '<script type="module" src="/main.ts"></script>'
+    ),
+    { encoding: "utf8" }
+  );
   // main.ts
   const mainPath = resolve(virtualAppPath, "main.ts");
   const mainTemplate = readFileSync(resolve(rootPath, "src/main.ts"), {
     encoding: "utf8",
   });
+  const { routes: rotuesStr, components } = getMainInjected(
+    appName === ".dev" ? getAllPaths() : app.paths
+  );
   writeFileSync(
     mainPath,
     mainTemplate
-      .replace("__ROUTES__", `[${routes.join(',')}]`)
-      .replace("// __IMPORT_COMPONENT__", components.join('\n'))
+      .replace("__ROUTES__", rotuesStr)
+      .replace("// __IMPORT_COMPONENT__", components)
       .replace("// IMPORRTANT: don't delete next line\n", "")
       .replace(
         "/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n",
@@ -47,20 +51,57 @@ export function createVirtualFiles(
       ),
     { encoding: "utf8" }
   );
-
   // App.vue
   const appTemplate = resolve(rootPath, "src/App.vue");
   const appPath = resolve(virtualAppPath, "App.vue");
   cpSync(appTemplate, appPath);
 
-  // .env.local
-  writeFileSync(resolve(rootPath, ".env.local"), `VITE_APP_NAME=${appName}`, {
-    encoding: "utf8",
-  });
+  const dist =
+    appName === ".dev"
+      ? ""
+      : relative(
+          dirname(indexPath),
+          resolve(rootPath, "dist", app?.dist ?? appName ?? "/")
+        );
 
+  return { indexPath, dist };
+}
+
+/**
+ * 开发环境时，获取所有的陆游与组件对应关系
+ */
+function getAllPaths() {
+  const appNames = Object.keys(routes);
+
+  const paths = {} as Record<string, string>;
+
+  for (let i = 0; i < appNames.length; i++) {
+    const appName = appNames[i];
+    const app = routes[appName];
+    Object.keys(app.paths).forEach((routePath) => {
+      const route = posix.join(appName, routePath);
+      paths[`/${route}`] = app.paths[routePath];
+    });
+  }
+  return paths;
+}
+
+/**
+ * 获取插入到main.ts中的数据
+ */
+function getMainInjected(paths: Record<string, string>) {
+  const routePaths = Object.keys(paths);
+  const routesStr: string[] = [];
+  const components: string[] = [];
+  routePaths.forEach((path) => {
+    const file = paths[path];
+    const componentName = str2IdentityName(file);
+    components.push(`import ${componentName} from "@/pages/${file}";`);
+    routesStr.push(`{path:"${path}",component:${componentName}}`);
+  });
   return {
-    indexPath,
-    virtualAppPath,
+    routes: `[${routesStr.join(",")}]`,
+    components: components.join("\n"),
   };
 }
 
