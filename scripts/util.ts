@@ -79,20 +79,36 @@ export function filterInputApps() {
 }
 
 /**
- * 开发环境时，获取所有的陆游与组件对应关系
+ * 开发环境时，获取所有的路由与组件对应关系
+ * 并创建首页
  */
 function getAllPaths() {
   const appNames = Object.keys(filterInputApps());
 
   const paths = {} as Record<string, string>;
 
+  const links = [] as string[];
+
   for (const appName of appNames) {
     const app = routes[appName];
     Object.keys(app.paths).forEach((routePath) => {
       const route = posix.join(appName, routePath.substring(1));
       paths[`/${route}`] = app.paths[routePath];
+      links.push(`<RouterLink to="/${route}">/${route}</RouterLink>`);
     });
   }
+
+  writeFileSync(
+    resolve(rootPath, '.vue-mpa/.dev/Home.vue'),
+    `<template>\n<div class="h-screen flex flex-col justify-center items-center c-blue space-y-2">\n${links.join(
+      '\n',
+    )}\n</div>\n</template>`,
+    {
+      encoding: 'utf8',
+    },
+  );
+  paths['/'] = '../../.vue-mpa/.dev/Home.vue';
+
   return paths;
 }
 

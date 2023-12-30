@@ -105,7 +105,10 @@ pnpm build --apps a b c
 
 其中`RouteConfig`中的参数:
 
-- `base`: 打包部署后，应用访问url的基准路径。参见[vite配置](https://cn.vitejs.dev/config/shared-options.html#base)
+- `base`: 打包部署后，应用访问url的基准路径。参见[vite配置](https://cn.vitejs.dev/config/shared-options.html#base)。
+
+  **注意：** 开发环境将忽略该参数。
+
 - `dist`: 打包后文件的位置，相对于根目录`dist`目录的相对位置。默认为项目名称。
 - `paths`: 该项目的路由配置。是一个对象，对象的键为`vue-router`的`path`路径，对象的值为`vue-router`的`component`组件所对应的`vue`文件所在位置，相对于`src/pages`目录的相对位置。
 
