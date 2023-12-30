@@ -1,5 +1,7 @@
 <template>
-  <div class="text-xl">C2</div>
+  <div class="text-xl">
+    C2
+  </div>
 </template>
 
 <script setup lang="ts">

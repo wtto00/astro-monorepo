@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-black">D1-1</div>
+  <div class="bg-black">
+    D1-1
+  </div>
 </template>
 
 <script setup lang="ts">

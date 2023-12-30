@@ -1,5 +1,7 @@
 <template>
-  <div class="c-blue">B</div>
+  <div class="c-blue">
+    B
+  </div>
   <HelloWorld msg="vue-mpa" />
 </template>
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="inline-block">D3</div>
+  <div class="inline-block">
+    D3
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsx scripts/build.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --fix --color --ext .ts,.vue .",
+    "format": "prettier . --write --ignore-unknown",
+    "tscheck": "vue-tsc --noEmit --pretty -p ./tsconfig.json",
+    "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\""
   },
   "dependencies": {
     "vue": "^3.3.11",
@@ -14,12 +18,20 @@
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
     "@unhead/vue": "^1.8.9",
     "@unocss/eslint-config": "^0.58.2",
     "@unocss/reset": "^0.58.2",
     "@unocss/transformer-directives": "^0.58.2",
     "@unocss/transformer-variant-group": "^0.58.2",
     "@vitejs/plugin-vue": "^4.5.2",
+    "eslint": "^8.56.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
     "tsx": "^4.7.0",
     "typescript": "^5.2.2",
     "unocss": "^0.58.2",

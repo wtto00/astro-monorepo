@@ -1,5 +1,7 @@
 <template>
-  <div class="flex justify-center items-center">A</div>
+  <div class="flex items-center justify-center">
+    A
+  </div>
 </template>
 
 <script setup lang="ts">

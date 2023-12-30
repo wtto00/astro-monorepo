@@ -1,5 +1,7 @@
 <template>
-  <div class="text-sm">D1-2</div>
+  <div class="text-sm">
+    D1-2
+  </div>
 </template>
 
 <script setup lang="ts">

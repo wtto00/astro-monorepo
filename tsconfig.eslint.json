@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    ".vue-mpa/**/*.ts",
+    ".vue-mpa/.dev/*.ts",
+    "vite.config.ts",
+    "scripts/**/*.ts",
+    "routes.config.ts",
+    "uno.config.ts",
+    ".lintstagedrc.cjs"
+  ]
+}

@@ -23,12 +23,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    ".vue-mpa/**/*.ts",
-    ".vue-mpa/.dev/*.ts",
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", ".vue-mpa/**/*.ts", ".vue-mpa/.dev/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
