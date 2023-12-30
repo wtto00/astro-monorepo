@@ -1,8 +1,10 @@
-import { defineConfig } from 'vite';
+import { dirname, resolve } from 'node:path';
+
 import vue from '@vitejs/plugin-vue';
 import UnoCSS from 'unocss/vite';
+import { defineConfig } from 'vite';
+
 import { createVirtualFiles, rootPath } from './scripts/util';
-import { dirname, resolve } from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {

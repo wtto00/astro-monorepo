@@ -1,6 +1,7 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { extname, posix, resolve, sep } from 'node:path';
-import { URL, fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL, URL } from 'node:url';
+
 import routes, { RouteConfig } from '../routes.config';
 
 /**

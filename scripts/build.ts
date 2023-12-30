@@ -1,6 +1,8 @@
-import { join, resolve } from 'node:path';
-import { build } from 'vite-ssg/node';
 import { existsSync, rmSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+
+import { build } from 'vite-ssg/node';
+
 import { filterInputApps, relative, rootPath } from './util';
 
 // 打包前清空dist文件夹
