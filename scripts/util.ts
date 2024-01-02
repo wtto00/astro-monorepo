@@ -40,8 +40,8 @@ export function createVirtualFiles(appName: string) {
     mainTemplate
       .replace('__ROUTES__', rotuesStr)
       .replace('// __IMPORT_COMPONENT__', components)
-      .replace('// IMPORRTANT: don\'t delete next line\n', '')
-      .replace('/**\n * IMPORRTANT: don\'t delete IMPORT_COMPONENT and ROUTES\n */\n', ''),
+      .replace("// IMPORRTANT: don't delete next line\n", '')
+      .replace("/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n", ''),
     { encoding: 'utf8' },
   );
   // App.vue
@@ -50,6 +50,29 @@ export function createVirtualFiles(appName: string) {
   cpSync(appTemplate, appPath);
 
   return { indexPath };
+}
+
+/**
+ * 获取项目所注入的环境变量
+ */
+export function getEnvs(appName: string) {
+  const envs = [] as string[];
+  if (appName === '.dev') {
+    const appNames = Object.keys(filterInputApps());
+
+    for (const appName of appNames) {
+      const app = routes[appName];
+      Object.keys(app.env || []).forEach((envName) => {
+        envs.push(`${envName}=${app.env[envName]}`);
+      });
+    }
+  } else {
+    const app = routes[appName];
+    Object.keys(app.env || []).forEach((envName) => {
+      envs.push(`${envName}=${app.env[envName]}`);
+    });
+  }
+  return envs;
 }
 
 /**

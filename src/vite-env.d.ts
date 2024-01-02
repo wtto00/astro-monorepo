@@ -7,3 +7,5 @@ declare module '*.vue' {
 }
 
 declare const __ROUTES__: RouteRecordRaw[];
+
+// interface ImportMetaEnv {}

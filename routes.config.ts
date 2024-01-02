@@ -18,6 +18,11 @@ export interface RouteConfig {
    * 暂不支持vue-router的其他选项
    */
   paths: Record<string, string>;
+  /**
+   * 该项目的环境变量，不需要vite中.env所要求的必须VITE_开头。
+   * @link https://cn.vitejs.dev/guide/env-and-mode.html
+   */
+  env?: Record<string, string>;
 }
 
 /**
@@ -35,6 +40,9 @@ const routesConfig: Record<string, RouteConfig> = {
       '/d1/d1-2': 'D/D1/D1-2.vue',
       '/d2/d2-1': 'D/D2/D2-1.vue',
       '/d2/d2-2': 'D/D2/D2-2.vue',
+    },
+    env: {
+      VITE_WECHAT_APPID: 'xxx',
     },
   },
   d3: {

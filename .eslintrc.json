@@ -23,16 +23,20 @@
   "ignorePatterns": ["node_modules", "dist", "!.*", ".vite-ssg-temp"],
   "overrides": [],
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "always"],
 
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
 
     "vue/multi-word-component-names": "off",
+    "vue/max-attributes-per-line": ["error", { "singleline": { "max": 9999999 } }],
+    "vue/html-self-closing": ["error", { "html": { "void": "always" } }],
+    "vue/singleline-html-element-content-newline": "off",
 
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off"
   }
 }
