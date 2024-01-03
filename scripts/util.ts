@@ -39,6 +39,7 @@ export function createVirtualFiles(appName: string) {
     mainPath,
     mainTemplate
       .replace('__ROUTES__', rotuesStr)
+      .replace('__ROUTER_BASE__', app?.base || '/')
       .replace('// __IMPORT_COMPONENT__', components)
       .replace("// IMPORRTANT: don't delete next line\n", '')
       .replace("/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n", ''),

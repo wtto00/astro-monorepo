@@ -10,4 +10,4 @@ import App from './App.vue';
 // IMPORRTANT: don't delete next line
 // __IMPORT_COMPONENT__
 
-export const createApp = ViteSSG(App, { routes: __ROUTES__ });
+export const createApp = ViteSSG(App, { routes: __ROUTES__, base: '__ROUTER_BASE__' });
