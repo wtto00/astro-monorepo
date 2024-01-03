@@ -16,6 +16,7 @@ export const rootPath = fileURLToPath(new URL('..', import.meta.url));
 export function createVirtualFiles(appName: string) {
   const app = routes[appName];
   // 准备此项目的相关文件
+  const base = app?.base || '/';
   // 项目虚拟目录
   const virtualAppPath = resolve(rootPath, `.vue-mpa/${appName}`);
   mkdirSync(virtualAppPath, { recursive: true });
@@ -34,21 +35,40 @@ export function createVirtualFiles(appName: string) {
   const mainTemplate = readFileSync(resolve(rootPath, 'src/main.ts'), {
     encoding: 'utf8',
   });
-  const { routes: rotuesStr, components } = getMainInjected(appName === '.dev' ? getAllPaths() : app.paths);
-  writeFileSync(
-    mainPath,
-    mainTemplate
-      .replace('__ROUTES__', rotuesStr)
-      .replace('__ROUTER_BASE__', app?.base || '/')
-      .replace('// __IMPORT_COMPONENT__', components)
-      .replace("// IMPORRTANT: don't delete next line\n", '')
-      .replace("/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n", ''),
-    { encoding: 'utf8' },
-  );
+  if (app?.component) {
+    const componentName = str2IdentityName(app.component);
+    const mainStr = `import { ViteSSG } from 'vite-ssg/single-page';
+    import ${componentName} from '@/pages/${app.component}';
+    export const createApp = ViteSSG(${componentName});`;
+    writeFileSync(
+      mainPath,
+      mainTemplate
+        .replace('// __IMPORT_COMPONENT__', mainStr)
+        .replace("// IMPORRTANT: don't delete next line\n", '')
+        .replace("/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n", ''),
+      { encoding: 'utf8' },
+    );
+  } else {
+    const { routes: rotuesStr, components } = getMainInjected(appName === '.dev' ? getAllPaths() : app.paths);
+    const mainStr = `import { ViteSSG } from 'vite-ssg';
+    import App from './App.vue';
+    ${components}
+    export const createApp = ViteSSG(App, { routes: ${rotuesStr}, base: '${base}' });`;
+    writeFileSync(
+      mainPath,
+      mainTemplate
+        .replace('// __IMPORT_COMPONENT__', mainStr)
+        .replace("// IMPORRTANT: don't delete next line\n", '')
+        .replace("/**\n * IMPORRTANT: don't delete IMPORT_COMPONENT and ROUTES\n */\n", ''),
+      { encoding: 'utf8' },
+    );
+  }
   // App.vue
-  const appTemplate = resolve(rootPath, 'src/App.vue');
-  const appPath = resolve(virtualAppPath, 'App.vue');
-  cpSync(appTemplate, appPath);
+  if (!app?.component) {
+    const appTemplate = resolve(rootPath, 'src/App.vue');
+    const appPath = resolve(virtualAppPath, 'App.vue');
+    cpSync(appTemplate, appPath);
+  }
 
   return { indexPath };
 }
@@ -116,9 +136,10 @@ function getAllPaths() {
 
   for (const appName of appNames) {
     const app = routes[appName];
-    Object.keys(app.paths).forEach((routePath) => {
+    const appPaths = app.paths || { '/': app.component };
+    Object.keys(appPaths).forEach((routePath) => {
       const route = posix.join(appName, routePath.substring(1));
-      paths[`/${route}`] = app.paths[routePath];
+      paths[`/${route}`] = appPaths[routePath] as string;
       links.push(`<RouterLink to="/${route}">/${route}</RouterLink>`);
     });
   }

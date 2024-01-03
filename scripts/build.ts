@@ -39,7 +39,7 @@ async function run() {
     rmSync(resolve(dist, '.vite'), { recursive: true, force: true });
 
     // 如果没有根路由，则删掉index.html
-    if (!app.paths['/']) {
+    if (!app.component && !app.paths?.['/']) {
       rmSync(resolve(dist, 'index.html'));
     }
 

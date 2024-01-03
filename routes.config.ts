@@ -17,7 +17,12 @@ export interface RouteConfig {
    *
    * 暂不支持vue-router的其他选项
    */
-  paths: Record<string, string>;
+  paths?: Record<string, string>;
+  /**
+   * 组件路径是相对于pages文件夹的相对位置
+   * 对于单页应用来说，不加载vue-rotuer
+   */
+  component?: string;
   /**
    * 该项目的环境变量，不需要vite中.env所要求的必须VITE_开头。
    * @link https://cn.vitejs.dev/guide/env-and-mode.html
@@ -29,8 +34,8 @@ export interface RouteConfig {
  * 所有项目的路由配置
  */
 const routesConfig: Record<string, RouteConfig> = {
-  a: { paths: { '/': 'A.vue' } },
-  b: { paths: { '/': 'B.vue' } },
+  a: { component: 'A.vue' },
+  b: { component: 'B.vue' },
   c: { paths: { '/c1': 'C/C1.vue', '/c2': 'C/C2.vue' } },
   'd1-d2': {
     base: '/d/',
@@ -48,7 +53,7 @@ const routesConfig: Record<string, RouteConfig> = {
   d3: {
     base: '/d/',
     dist: 'd/d3',
-    paths: { '/': 'D/D3.vue' },
+    component: 'D/D3.vue',
   },
 };
 
