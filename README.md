@@ -18,6 +18,14 @@ pnpm build b
 pnpm build a b
 ```
 
+## 参数
+
+|  名称  |  默认值  |                                                 备注                                                  |
+| :----: | :------: | :---------------------------------------------------------------------------------------------------: |
+|  base  |   '/'    |  [import.meta.env.BASE_URL](https://docs.astro.build/zh-cn/reference/configuration-reference/#base)   |
+|  dist  | './dist' | [outDir](https://docs.astro.build/zh-cn/reference/configuration-reference/#outdir),相对于`dist`的目录 |
+| rename |   true   |                                   单个页面是否重命名为`index.html`                                    |
+
 ## 示例
 
 ```plaintext
@@ -33,7 +41,7 @@ pnpm build a b
   - d2
     - d2-1.html
     - d2-2.html
-  - d3/index.html
+  - d3.html
 ```
 
 最终的访问路径如上图所示。
@@ -57,5 +65,5 @@ pnpm build "c/*" --base /c/
 
 pnpm build "d/d1/*" "d/d2/*" --base /d/
 
-pnpm build d/d3 --base /d/d3/ --dist d/d3
+pnpm build d/d3 --base /d/ --dist d --no-rename
 ```

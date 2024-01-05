@@ -41,7 +41,7 @@ spawnSync('pnpm', ['astro build'], {
 })
 
 /** 仅有一个页面时，重命名打包的html名称为index.html */
-if (buildPages.length === 1) {
+if (args.rename !== false && buildPages.length === 1) {
   const pagePath = buildPages[0]
   if (pagePath) {
     const pageName = posix.relative('src/pages', pagePath)
