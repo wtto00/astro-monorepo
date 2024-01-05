@@ -4,15 +4,10 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    ".vue-mpa/**/*.ts",
-    ".vue-mpa/**/*.vue",
-    ".vue-mpa/.dev/**/*.ts",
-    ".vue-mpa/.dev/**/*.vue",
-    "vite.config.ts",
+    "src/**/*.astro",
     "scripts/**/*.ts",
-    "routes.config.ts",
     "uno.config.ts",
+    "astro.config.ts",
     ".lintstagedrc.cjs"
   ]
 }

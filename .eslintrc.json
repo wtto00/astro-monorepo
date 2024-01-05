@@ -4,38 +4,54 @@
     "es2021": true,
     "node": true
   },
-  "plugins": ["vue", "@typescript-eslint", "simple-import-sort"],
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
   "extends": [
     "eslint:recommended",
-    "plugin:vue/vue3-recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/stylistic-type-checked",
-    "@unocss"
+    "@unocss",
+    "plugin:astro/recommended"
   ],
-  "parser": "vue-eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "parser": "@typescript-eslint/parser",
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "tsconfig.eslint.json",
-    "extraFileExtensions": [".vue"]
+    "project": "tsconfig.eslint.json"
   },
-  "ignorePatterns": ["node_modules", "dist", "!.*", ".vite-ssg-temp"],
-  "overrides": [],
+  "ignorePatterns": ["node_modules", "dist", "astro-monorepo"],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      },
+      "rules": {
+        // override/add rules settings here, such as:
+        // "astro/no-set-html-directive": "error"
+      }
+    }
+  ],
   "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single", { "avoidEscape": true }],
-    "semi": ["error", "always"],
-
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "semi": ["error", "never"],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-
-    "vue/multi-word-component-names": "off",
-    "vue/max-attributes-per-line": ["error", { "singleline": { "max": 9999999 } }],
-    "vue/html-self-closing": ["error", { "html": { "void": "always" } }],
-    "vue/singleline-html-element-content-newline": "off",
-
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off"
   }

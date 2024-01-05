@@ -1,6 +1,6 @@
-import transformerDirectives from '@unocss/transformer-directives';
-import transformerVariantGroup from '@unocss/transformer-variant-group';
-import { defineConfig, presetIcons, presetUno } from 'unocss';
+import transformerDirectives from '@unocss/transformer-directives'
+import transformerVariantGroup from '@unocss/transformer-variant-group'
+import { defineConfig, presetIcons, presetUno } from 'unocss'
 
 export default defineConfig({
   presets: [
@@ -11,9 +11,9 @@ export default defineConfig({
         custom: {},
       },
       customizations: {
-        iconCustomizer(collection, icon, props) {
+        iconCustomizer(collection, _icon, props) {
           if (collection === 'custom') {
-            props.fill = 'currentColor';
+            props.fill = 'currentColor'
           }
         },
       },
@@ -23,4 +23,4 @@ export default defineConfig({
     colors: {},
   },
   transformers: [transformerVariantGroup(), transformerDirectives()],
-});
+})

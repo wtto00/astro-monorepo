@@ -1,42 +1,42 @@
 {
-  "name": "vue-mpa",
-  "private": true,
-  "version": "0.0.0",
+  "name": "astro-monorepo",
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
+    "dev": "astro dev",
+    "start": "astro dev",
     "build": "tsx scripts/build.ts",
-    "preview": "vite preview",
-    "lint": "eslint --fix --color --ext .js,.cjs,.mjs,.ts,.tsx,.vue .",
-    "format": "prettier . --write --ignore-unknown",
-    "tscheck": "vue-tsc --noEmit --pretty -p ./tsconfig.json",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint --fix --color --ext .js,.cjs,.mjs,.ts,.tsx,.astro .",
+    "format": "prettier . --write --ignore-unknown --plugin=prettier-plugin-astro",
+    "check": "astro check",
     "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\""
   },
   "dependencies": {
-    "vue": "^3.4.3",
-    "vue-router": "^4.2.5"
+    "@astrojs/check": "^0.3.4",
+    "astro": "^4.1.0",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",
+    "@types/yargs-parser": "^21.0.3",
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
-    "@unhead/vue": "^1.8.9",
     "@unocss/eslint-config": "^0.58.3",
     "@unocss/reset": "^0.58.3",
     "@unocss/transformer-directives": "^0.58.3",
     "@unocss/transformer-variant-group": "^0.58.3",
-    "@vitejs/plugin-vue": "^5.0.2",
     "eslint": "^8.56.0",
+    "eslint-plugin-astro": "^0.31.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-vue": "^9.19.2",
+    "glob": "^10.3.10",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
+    "prettier-plugin-astro": "^0.12.3",
     "tsx": "^4.7.0",
-    "typescript": "^5.2.2",
     "unocss": "^0.58.3",
-    "vite": "^5.0.8",
-    "vite-ssg": "^0.23.6",
-    "vue-tsc": "^1.8.25"
+    "yargs-parser": "^21.1.1"
   }
 }
