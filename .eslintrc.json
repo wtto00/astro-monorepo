@@ -34,24 +34,15 @@
     }
   ],
   "rules": {
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
-    "quotes": [
-      "error",
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "never"],
+    "max-len": ["error", { "code": 120, "ignoreStrings": true, "ignorePattern": "^\\s+(class|d)=\"[\\s\\S]+\"$" }],
+
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off"
   }
