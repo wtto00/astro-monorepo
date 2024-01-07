@@ -8,7 +8,7 @@
     "build": "tsx scripts/build.ts",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint --fix --color --ext .js,.cjs,.mjs,.ts,.tsx,.astro .",
+    "lint": "eslint --fix --color --cache --ext .js,.cjs,.mjs,.ts,.tsx,.astro .",
     "format": "prettier . --write --ignore-unknown --plugin=prettier-plugin-astro",
     "check": "astro check",
     "prepare": "husky install && husky set .husky/pre-commit \"npx lint-staged\""
