@@ -21,8 +21,8 @@
   "devDependencies": {
     "@types/node": "^20.11.8",
     "@types/yargs-parser": "^21.0.3",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
     "@unocss/eslint-config": "^0.58.4",
     "@unocss/reset": "^0.58.4",
     "@unocss/transformer-directives": "^0.58.4",
