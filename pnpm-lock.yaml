@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.5.6
     version: 0.5.6(prettier-plugin-astro@0.13.0)(prettier@3.2.5)(typescript@5.3.3)
   astro:
-    specifier: ^4.4.9
-    version: 4.4.9(@types/node@20.11.24)(typescript@5.3.3)
+    specifier: ^4.4.10
+    version: 4.4.10(@types/node@20.11.24)(typescript@5.3.3)
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -1442,7 +1442,7 @@ packages:
       colorette: 2.0.20
       consola: 3.2.3
       fast-glob: 3.3.2
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       pathe: 1.1.2
       perfect-debounce: 1.0.0
     transitivePeerDependencies:
@@ -1483,7 +1483,7 @@ packages:
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.3.3)
       '@unocss/config': 0.58.5
       '@unocss/core': 0.58.5
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       synckit: 0.9.0
     transitivePeerDependencies:
       - eslint
@@ -1520,7 +1520,7 @@ packages:
       '@unocss/rule-utils': 0.58.5
       css-tree: 2.3.1
       fast-glob: 3.3.2
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       postcss: 8.4.35
     dev: true
 
@@ -1604,7 +1604,7 @@ packages:
     engines: { node: '>=14' }
     dependencies:
       '@unocss/core': 0.58.5
-      magic-string: 0.30.7
+      magic-string: 0.30.8
     dev: true
 
   /@unocss/scope@0.58.5:
@@ -1669,7 +1669,7 @@ packages:
       '@unocss/transformer-directives': 0.58.5
       chokidar: 3.6.0
       fast-glob: 3.3.2
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       vite: 5.1.4(@types/node@20.11.24)
     transitivePeerDependencies:
       - rollup
@@ -1891,9 +1891,9 @@ packages:
       - supports-color
     dev: true
 
-  /astro@4.4.9(@types/node@20.11.24)(typescript@5.3.3):
+  /astro@4.4.10(@types/node@20.11.24)(typescript@5.3.3):
     resolution:
-      { integrity: sha512-FTWhzKjao7rHHiF/CqPqPS18AFad+fmUcYUFhWWIsYETHcc9g0IIIiv6cHXUE7g6mEZf7ycAa+WdboeEHUhraQ== }
+      { integrity: sha512-8ASYlHPNKJg7F+1mlQts7nU1jZPQGE2xluB4fcdAUvH33BYLEBz/bCxJwLOmfC8Ai2gzs/wTwofwDzqbwjx6Ug== }
     engines: { node: '>=18.14.1', npm: '>=6.14.0' }
     hasBin: true
     dependencies:
@@ -1937,7 +1937,7 @@ packages:
       http-cache-semantics: 4.1.1
       js-yaml: 4.1.0
       kleur: 4.1.5
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       mdast-util-to-hast: 13.0.2
       mime: 3.0.0
       ora: 7.0.1
@@ -2123,7 +2123,7 @@ packages:
     engines: { node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7 }
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001591
+      caniuse-lite: 1.0.30001593
       electron-to-chromium: 1.4.690
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -2164,9 +2164,9 @@ packages:
     engines: { node: '>=14.16' }
     dev: false
 
-  /caniuse-lite@1.0.30001591:
+  /caniuse-lite@1.0.30001593:
     resolution:
-      { integrity: sha512-PCzRMei/vXjJyL5mJtzNiUCKP59dm8Apqc3PH8gJkMnMXZGox93RbE76jHsmLwmIo6/3nsYIpJtx0O7u5PqFuQ== }
+      { integrity: sha512-UWM1zlo3cZfkpBysd7AS+z+v007q9G1+fLTUU42rQnY6t2axoogPW/xol6T7juU5EUoOhML4WgBIdG+9yYqAjQ== }
 
   /ccount@2.0.1:
     resolution:
@@ -3683,9 +3683,9 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /magic-string@0.30.7:
+  /magic-string@0.30.8:
     resolution:
-      { integrity: sha512-8vBuFF/I/+OSLRmdf2wwFCJCz+nSn0m6DPvGH1fS/KiQoSaR+sETbov0eIk9KhEKy8CYqIkIAnbohxT/4H0kuA== }
+      { integrity: sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ== }
     engines: { node: '>=12' }
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
