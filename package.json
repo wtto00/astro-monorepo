@@ -27,7 +27,7 @@
     "@unocss/reset": "^0.59.0",
     "@unocss/transformer-directives": "^0.59.0",
     "@unocss/transformer-variant-group": "^0.59.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "eslint-plugin-astro": "^0.34.0",
     "eslint-plugin-simple-import-sort": "^12.0.0",
     "glob": "^10.3.10",
